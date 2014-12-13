@@ -1,0 +1,67 @@
+xit
+exit
+quit
+help
+kill
+    FvwmCommand 'FvwmPager 0 1'
+DesktopSize 5x5
+DesktopSize 1x4
+DesktopSize 1x1
+DesktopSize 1x2
+DesktopSize 1x3
+DesktopSize 4x1
+kill 
+ls
+Module FvwmConsole -g 40x10 -fg black -bg green3 
+ls
+ls
+test
+Module FvwmConsole -g 40x10 -fg black -bg black
+Module FvwmConsole -g 40x10 -fg white -bg black
+ls
+ls
+Module FvwmConsole -g 40x10 -fg white -bg black
+Module FvwmConsole -terminal aterm -g 40x10 -fg white -bg black
+Module FvwmConsole -terminal aterm -tr +sb -fg white -bg white -sh 50
+Module FvwmConsole -terminal aterm -tr +sb -fg white -bg black -sh 50
+ls
+Module FvwmConsole -bg black -fg white
+Module FvwmConsole -bg black -fg gray
+ls
+Read pager
+man FvwmBacker
+FvwmAnimate
+ls
+Key A 5 PackWrapperLeft
+Key A C PackWrapperLeft
+Key A CM PackWrapperLeft
+Key A CM PackWrapperLeft
+Key A CM PackWrapperLeft
+Key A CM WindowShade
+exit
+quit
+DestroyFunc RaiseOrShade
+AddToFunc RaiseOrShade
++ C Raise
++ D WindowShade
+Mouse 1 SF A RaiseOrShade
+ls
+goToDesk 0
+;
+GoToDesk 0
+GoToDesk 0;
+GoToDesk 1;
+Restart
+FvwmPager
+fvwmPager
+FvwmPager
++ I Module FvwmButtons Notification
+Module FvwmButtons DownloadConfigUpdating
+killModule FvwmButtons DownloadConfigUpdating
+Module FvwmButtons DownloadConfigUpdated
+killModule FvwmButtons DownloadConfigUpdated
+Module FvwmButtons Notification
+killModule Notification
+killModule FvwmButtons Notification
+Module FvwmButtons DownloadConfigUpdating
+killModule FvwmButtons DownloadConfigUpdating

@@ -1,0 +1,294 @@
+#####################################################
+#_______________   ______      __  _____   
+#\_   _____/\   \ /   /  \    /  \/     \  
+# |    __)   \   Y   /\   \/\/   /  \ /  \ 
+# |     \     \     /  \        /    Y    \
+# \___  /      \___/    \__/\  /\____|__  /
+#     \/                     \/         \/ 
+#####################################################
+# File :	config (fvwm2rc)
+# Version :	0.5
+# Autor:	Ernesto C. (Dnex) <dnex@avenegra.org>
+# GitHub    https://github.com/Dnex0/Recognizer
+# Modified :	2011-01-04
+###########################################################
+# FVWM Main Config File
+###########################
+
+SetEnv fvwm_images			$[FVWM_USERDIR]/images
+SetEnv fvwm_wallpaper_dir		~/Images/Walls
+
+DefaultFont "xft:Freesans:size=8"					
+
+Read .fvwmbuttons							
+Read .fvwmtiling								
+Read .fvwmkeybindings								
+Read .fvwmwindow							
+
+###########################################################
+# Time Related Functions
+#########################
+
+AddToFunc StartFunction								
+# these start up every login
+#+ I Exec exec killall bmpanel2		
+#+ I Exec exec Esetroot -scale ~/W.jpg
++ I Exec exec conky -c ~/.fvwm/conky-noc
+#+ I Exec exec nm-applet 
+#+ I Exec exec gnome-settings-daemon 		
++ I Exec exec nitrogen --restore
++ I Exec exec xcompmgr -cCfF -t-5 -l-5 -r4.2 -o.55 -D6 	 
++ I Piperead '~/.fvwm/check.sh'
+#+ I Exec exec bmpanel2 --theme=transpy 
+
+Module FvwmCommandS
+Module FvwmAnimate
+Module FvwmEvent
+
+#AddToFunc InitFunction 								
+
+AddToFunc ExitFunction 								
+# kills apps to avoid duplicates upon restarting Fvwm
+#+ I Exec exec killall conky						
+#+ I Exec exec killall bmpanel2						
+#+ I Exec exec killall stalonetray						
++ I Exec exec killall xcompmgr
+#+ I Exec exec killall conky						
+#+ I Exec exec killall nm-applet
+# For debug
++ I Exec exec mv ~/.xsession-errors ~/.xsession-errors.bak
+
+###########################################################
+# Main Configs
+#####################
+
+DeskTopSize 4x1										
+# 4 side-by-side desks, controlled by CTRL+ALT+Left or RIght ArrowKey
+EdgeScroll 0 0 wrap
+EdgeThickness 1
+
+MoveThreshold 3
+HideGeometryWindow Always
+OpaqueMoveSize unlimited
+BugOpts FlickeringMoveWorkaround Off
+
+ClickTime 50
+MoveThreshold 3
+Style * ClickToFocus, MouseFocusClickRaises 
+# Using SloppyFocus will cause mouse flickering using modern programs, and Xorg to climb around 75 of CPU%
+EWMHBaseStruts 5 5 65 49								
+# desktop edges						
+# if maximized, takes up area up to desktop edges (use tiling for maximize)
+IgnoreModifiers L25
+
+###########################################################
+# Colorsets
+##################
+
+Colorset 1 fg white, bg black, sh black, hi black, fgsh white
+Colorset 2 fg #ffffff, bg #000000, sh #000000, hi #000000
+Colorset 3 fg #616161, bg #000000, sh #000000, hi #000000, fgsh black, RootTransparent buffer, tint #000000 95	
+Colorset 4 fg black, bg white, sh white, hi white
+Colorset 5 fg white, bg black, sh black, hi black, RootTransparent buffer, tint #000000 0	
+
+# For round corners
+Colorset 6 RootTransparent, bg white, Shape $[fvwm_images]/dock-mask.xpm, tint #ffffff 0  
+Colorset 7 RootTransparent, bg white, Shape $[fvwm_images]/more-shape.xpm, tint #ffffff 0
+Colorset 8 RootTransparent, bg white, Shape $[fvwm_images]/win-corner.xpm, fg black, bg black, fgsh white,  tint #000000 0
+Colorset 9 RootTransparent, bg white, Shape $[fvwm_images]/info-shape.xpm, fg black, fgsh white
+Colorset 10 RootTransparent, bg white, fg black, fgsh white
+###########################################################
+# Menu Settings
+###################
+
+# Formating for the left-click menu (I have no right-click in here, but thats easily changable)
+MenuStyle * VerticalItemSpacing 0 8, VerticalTitleSpacing 0 0
+MenuStyle * BorderWidth 1
+MenuStyle * MenuColorset 3 Transparent					
+# necessary for transparency
+MenuStyle * ActiveFore, Hilight3DOff, !HilightBack
+MenuStyle * ActiveColorset 2
+MenuStyle * ItemFormat "%.5s%.10|%3.5l%2.3>%10|"
+MenuStyle * TrianglesSolid, TrianglesUseFore 
+MenuStyle * Font "shadow=1 0 South:xft:Freesans:size=8"
+#MenuStyle * MenuFace TiledPixmap $[fvwm_images]/menuback.png	# needs a pixmap for transparency
+MenuStyle * SelectOnRelease Meta_L
+###########################################################
+# Makes It All Feel Good Man
+#################################
+
+Style Fvwm*		!Title, Sticky, WindowListSkip
+Style Fvwm*		BorderWidth 1, CirculateSkipIcon, CirculateSkip
+Style FvwmButtons	ClickToFocus, !Title, !Borders, !Handles, StaysOnBottom, Sticky	
+Style *			ResizeOutline
+# no weird borders, titles, et cetera
+
+
+
+Style tint		!Title, !Borders, WindowListSkip, Sticky, ClickToFocus
+Style gmrun	    	WindowListSkip, Sticky, ClickToFocus
+Style pidgin		WindowListSkip
+Style trayer		!Title, !Borders, StaysOnTop						
+# StaysOnTop to be over FvwmButtons Modules
+Style conky		!Title, !Borders, !Handles, Sticky, WindowListSkip, StaysOnTop		
+
+MenuStyle * Animation
+MenuStyle * PopupOffset 5 100
+#############################################################
+# Programs Menu
+#####################
+DestroyMenu FvwmProgramsMenu
+AddToMenu   FvwmProgramsMenu "" Title
++ "Terminal" Exec exec xfce4-terminal
++ "Gedit" Exec exec gedit
++ "Vim" Exec exec xfce4-terminal -e vim
++ "Nautilus" Exec exec nautilus --no-desktop
++ "Conky" Exec exec conky -c ~/.fvwm/conky-noc
++ "Gimp"  Exec exec gimp
++ "Inkscape"  Exec exec inkscape
++ "Firefox"  Exec exec firefox
++ "Chromium" Exec exec chromium-browser
++ "Thunderbird"  Exec exec thunderbird
++ "Sonata"  Exec exec sonata
++ "Nitrogen"  Exec exec nitrogen 
++ "VMplayer" Exec exec vmplayer
+
+#############################################################
+# FVWM Help Menu
+###################
+DestroyMenu FvwmManPagesMenu
+AddToMenu   FvwmManPagesMenu "FVWM Man Pages" Title
++ "fvwm"                FvwmViewManPage fvwm
++ "FvwmAnimate"         FvwmViewManPage FvwmAnimate
++ "FvwmAuto"            FvwmViewManPage FvwmAuto
++ "FvwmBacker"          FvwmViewManPage FvwmBacker
++ "FvwmBanner"          FvwmViewManPage FvwmBanner
++ "FvwmButtons"         FvwmViewManPage FvwmButtons
++ "FvwmCommand"         FvwmViewManPage FvwmCommand
++ "FvwmConsole"         FvwmViewManPage FvwmConsole
++ "FvwmConsoleC.pl"     FvwmViewManPage FvwmConsoleC.pl
++ "FvwmCpp"             FvwmViewManPage FvwmCpp
++ "FvwmDebug"           FvwmViewManPage FvwmDebug
++ "FvwmDragWell"        FvwmViewManPage FvwmDragWell
++ "FvwmEvent"           FvwmViewManPage FvwmEvent
++ "FvwmForm"            FvwmViewManPage FvwmForm
++ "FvwmGtk"             FvwmViewManPage FvwmGtk
++ "FvwmGtkDebug"        FvwmViewManPage FvwmGtkDebug
++ "FvwmIconBox"         FvwmViewManPage FvwmIconBox
++ "FvwmIconMan"         FvwmViewManPage FvwmIconMan
++ "FvwmIdent"           FvwmViewManPage FvwmIdent
++ "FvwmM4"              FvwmViewManPage FvwmM4
++ "FvwmPager"           FvwmViewManPage FvwmPager
++ "FvwmPerl"            FvwmViewManPage FvwmPerl
++ "FvwmProxy"           FvwmViewManPage FvwmProxy
++ "FvwmRearrange"       FvwmViewManPage FvwmRearrange
++ "FvwmSave"            FvwmViewManPage FvwmSave
++ "FvwmSaveDesk"        FvwmViewManPage FvwmSaveDesk
++ "FvwmScript"          FvwmViewManPage FvwmScript
++ "FvwmScroll"          FvwmViewManPage FvwmScroll
++ "FvwmTaskBar"         FvwmViewManPage FvwmTaskBar
++ "FvwmTheme"           FvwmViewManPage FvwmTheme
++ "FvwmWharf"           FvwmViewManPage FvwmWharf
++ "FvwmWinList"         FvwmViewManPage FvwmWinList
++ "FvwmWindowMenu"      FvwmViewManPage FvwmWindowMenu
++ "" Nop
++ "fvwm-config"         FvwmViewManPage fvwm-config
++ "fvwm-perllib"        FvwmViewManPage fvwm-perllib
++ "fvwm-root"           FvwmViewManPage fvwm-root
++ "fvwm-bug"            FvwmViewManPage fvwm-bug
++ "fvwm-convert-2.2"    FvwmViewManPage fvwm-convert-2.2
++ "fvwm-convert-2.4"    FvwmViewManPage fvwm-convert-2.4
++ "" Nop
++ "fvwm-menu-desktop"   FvwmViewManPage fvwm-menu-desktop
++ "fvwm-menu-directory" FvwmViewManPage fvwm-menu-directory
++ "fvwm-menu-headlines" FvwmViewManPage fvwm-menu-headlines
++ "fvwm-menu-xlock"     FvwmViewManPage fvwm-menu-xlock
+
+DestroyFunc FvwmViewManPage
+AddToFunc FvwmViewManPage
++ I Exec exec xterm -e man $0
+
+###########################################################
+# Middle-CLick Menu
+##########################
+Destroy MenuFvwmMiddle
+AddToMenu MenuFvwmMiddle *$[fvwm_images]/menu_title.png* Title
++ "" Nop
++ "Recognizer v 0.5"
++ "Recognizer controls" Exec exec xterm -e more ~/.fvwm/cheats.txt && exit
+
+###########################################################
+# Left-Click Menu
+#########################
+Destroy MenuFvwmLeft
+AddToMenu MenuFvwmLeft	*$[fvwm_images]/menu_title.png*	Title
++ "" Nop
++ "Terminal" Exec exec xfce4-terminal		
++ "Programs"  Popup FvwmProgramsMenu
++ "FVWM Console"  Module FvwmConsole -fg gray -bg black
++ "Help"  Popup FvwmManPagesMenu
++ "Control Animation" Popup MenuFvwmAnimate
++ "Control compositing" Popup MenuComposite
++ "Window Rearrange" Popup MenuWinRearrange
++ "Restart FVWM"  Restart
++ "Quit FVWM"  Quit
+
+# WinRearrange 
+DestroyMenu MenuWinRearrange
+AddToMenu   MenuWinRearrange
++ "Cascade" FvwmRearrange -animate -cascade -resize -m 10 10 50 50 -incx 2
++ "Tile horizontally" FvwmRearrange -tile -animate -h -m 0 10 100 90
++ "Tile vertically" FvwmRearrange -tile -m 0 10 100 90
++ "" Nop
++ "Refresh Screen" Refresh
+
+
+# Compositing
+DestroyMenu MenuComposite
+AddToMenu MenuComposite
++ "Start compositing" Exec exec killall xcompmgr ; xcompmgr -cCfF -t-5 -l-5 -r4.2 -o.55 -D6 &
++ "Stop compositing" Exec exec killall xcompmgr
+
+###########################################################
+# Right-Click Menu
+############################
+
+Destroy MenuFvwmWindowOps
+AddToMenu MenuFvwmWindowOps *$[fvwm_images]/menu_files.png* Title
++ "" Nop
++ "Folders" Popup DynMenu
++ "Upload Config" UploadConfig
++ "Backup and Update" DownloadConfig
++ "Restore Backup" RestoreBackup
++ "" Nop
+
+DestroyFunc DownloadConfig
+AddToFunc DownloadConfig
++ I PipeRead '~/.fvwm/downloadConfig.sh'
+
+DestroyFunc UploadConfig
+AddToFunc UploadConfig
++ I PipeRead 'rm ~/Dropbox/Public/version ; cp ~/.fvwm/version ~/Dropbox/Public ; zip -r Rocken.zip .fvwm/ ; rm -Rf ~/Dropbox/Public/Rocken.zip ; mv ~/Rocken.zip ~/Dropbox/Public/'
+
+DestroyFunc RestoreBackup
+AddToFunc RestoreBackup
++ I PipeRead 'mv ~/.fvwm/Backup.zip ~/ ; rm -Rf ~/.fvwm ; unzip ~/Backup.zip ; mv ~/Backup.zip ~/.fvwm/'
+
+DestroyFunc FuncFvwmMenuDirectory
+AddToFunc   FuncFvwmMenuDirectory
+#+ I PipeRead 'fvwm-menu-directory --title "%d" --dir "$0" --links --command-file "exec mplayer "%f"" --command-title "exec mplayer "%d"" --exclude ".png"'
++ I PipeRead "fvwm-menu-directory --title '' --exec-file 'thunar' -d '$0'"
+
+####################################################################
+# Music Menu
+##############
+DestroyMenu DynMenu
+AddToMenu   DynMenu MissingSubmenuFunction FuncFvwmMenuDirectory
++ "" Nop
++ "Music" Popup ~/Music
++ "Images" Popup ~/Pictures
++ "Videos" Popup ~/Videos
++ "Downloads" Popup ~/Downloads
++ "Desktop" Popup ~/Desktop
++ "Docs" Popup ~/Documents
+

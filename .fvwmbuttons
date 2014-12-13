@@ -1,0 +1,284 @@
+###########################################################
+# File:		.fvwmbuttons
+# Autor:	Ernesto C. (Dnex) <dnex@avenegra.org>
+# GitHub    https://github.com/Dnex0/Recognizer
+# Modified	2011-01-04
+###############################################################
+###########################################################
+
+AddToFunc StartFunction
+#+ I Module FvwmButtons TopBar
+#+ I Module FvwmButtons BottomBar
++ I Module FvwmButtons Dock
++ I Module FvwmButtons Exit
+#+ I Module FvwmButtons More
+#+ I Module FvwmButtons Info
+#+ I Module FvwmButtons UpdateCenter
+#+ I Module FvwmButtons Notification
+###########################################################
+# Important Shit to Remember
+###########################################################
+
+###########################################################
+# 
+#	You must have:
+#	DestroyModuleConfig "InsertNameofModule"
+#	*"InsertNameOfModule": Geometry (width)x(height)+(x-position)+(y-position)
+#	*"InsertNameOfModule": Columns (#, corresponds to width)
+#	*"InsertNameOfModule": Rows (#, corresponds to height)
+#	*"InsertNameOfModule": Padding 0 0 (so you don't get crappy looking borders around everything)
+#	*"InsertNameOfModule": Frame 0 (forgot why its important, I just know it is)
+#	*"InsertNameOfModule": ColorSet (whatever one you want, the blank areas follow the Colorset rules)
+#	*"InsertNameOfModule": ((# of columns)x(# of rows), Icon [location], ActiveIcon [location], PressIcon [location], Action [if any])
+#
+#	The Swallow command replaces blank space and pixmaps with a program, examples are below in the actual config
+#
+#	If the formating is like:
+#	*"InsertNameOfModule": (12x10)
+#	Then that means that there will be no pixmap assigned and it will fallback in the assigned colorset
+#
+#	Functions Format
+#	DestroyFunc "InsertNameofFunction"
+#	AddToFunc "InsertNameofFunction"
+#	+ I Command	# the "I" tells the function to execute the command immediately
+#
+###########################################################
+
+###########################################################
+# Top Bar
+###########################################################
+
+# Inspired from the 3FORM shot by Imrik (its at http://www.customize.org/imrik)
+# Only way to make things work the way I wanted is to use 4 Conkys :-( Oh well ...
+
+DestroyModuleConfig TopBar
+*TopBar: Geometry 1920x0+0+0
+*TopBar: Columns 1920
+*TopBar: Rows 1
+*TopBar: Padding 0 0
+*TopBar: Frame 0
+*TopBar: Colorset 5
+*TopBar: (1920x65, Swallow "conky" 'Exec conky -c ~/.conky/conkyrc-naos')
+
+DestroyFunc MenuFunc	
+# function to open "Start Menu"
+AddToFunc MenuFunc
++ I Module FvwmButtons Menu
+
+###########################################################
+# More
+###########################################################
+DestroyModuleConfig More
+*More: Geometry 127x23+700+65
+*More: Columns 127
+*More: Rows 23
+*More: Padding 0 0
+*More: Frame 0
+*More: Colorset 7
+*More: (127x23, Icon $[fvwm_images]/more.png)
+#*More: (Panel(down, delay 0, steps 16) SubPanel "Module FvwmButtons SubPanel")
+#*More: (Panel my_first_panel "Module FvwmButtons -g -30000-30000 my_first_panel")
+#*More: (Panel my_second_panel "Exec exec xterm -g -30000-30000 -n my_second_panel")
+*More: Font "shadow=1 0 South:xft:Freesans:size=8:minspace=False:antialias=True"
+
+# Drop-down menu
+DestroyFunc DetailsNet
+AddToFunc DetailsNet
++ I Module FvwmButtons Exit
+
+###########################################################
+# Bottom Bar
+###########################################################
+
+DestroyModuleConfig BottomBar
+*BottomBar: Geometry 1920x34+0-10
+*BottomBar: Columns 1
+*BottomBar: Rows 1
+*BottomBar: Padding 0 0
+*BottomBar: Frame 0
+*BottomBar: Colorset 5
+*BottomBar: (1x1, Swallow "bmpanel" 'Exec bmpanel2 --theme=transpy')
+
+###########################################################
+# Info
+###########################################################
+
+DestroyModuleConfig Info
+*Info: Geometry 180x67+500+500
+*Info: Columns 180
+*Info: Rows 67
+*Info: Padding 0 0
+*Info: Frame 0
+*Info: Colorset 9
+*Info: (153x67, Icon $[fvwm_images]/info.png)
+*Info: Font "shadow=1 0 South:xft:Freesans:size=8:minspace=False:antialias=True"
+
+###########################################################
+# Update Center
+###########################################################
+
+DestroyModuleConfig UpdateCenter
+*UpdateCenter: Geometry 152x128+1600+500
+*UpdateCenter: Columns 152
+*UpdateCenter: Rows 245
+*UpdateCenter: Padding 0 0
+*UpdateCenter: Frame 0
+*UpdateCenter: (152x37, Icon $[fvwm_images]/update_top.png)
+*UpdateCenter: (152x37, Icon $[fvwm_images]/Rockenv2.png)
+*UpdateCenter: (152x25, Icon $[fvwm_images]/update_sep.png)
+*UpdateCenter: (152x29, Icon $[fvwm_images]/update_bottom.png) 
+#*UpdateCenter: (150x37, Icon $[fvwm_images]/Rockenv2.png)
+#*UpdateCenter: (End)
+*UpdateCenter: Colorset 10
+#*UpdateCenter: (152x245, Icon $[fvwm_images]/update.png)
+*UpdateCenter: Font "shadow=1 0 South:xft:Freesans:size=8:minspace=False:antialias=True"
+
+###########################################################
+# Notification
+###########################################################
+
+DestroyModuleConfig Notification
+*Notification: Geometry 220x72+1600+200
+*Notification: Columns 220
+*Notification: Rows 72
+*Notification: Padding 0 0
+*Notification: Frame 0
+*Notification: Colorset 9
+*Notification: (220x72, Icon $[fvwm_images]/update_available.png, Action (Mouse 1) killModule FvwmButtons Notification)
+
+###########################################################
+# DownloadConfigUpdated
+###########################################################
+
+DestroyModuleConfig DownloadConfigUpdated
+*DownloadConfigUpdated: Geometry 220x72+1600+200
+*DownloadConfigUpdated: Columns 220
+*DownloadConfigUpdated: Rows 72
+*DownloadConfigUpdated: Padding 0 0
+*DownloadConfigUpdated: Frame 0
+*DownloadConfigUpdated: Colorset 9
+*DownloadConfigUpdated: (220x72, Icon $[fvwm_images]/DownloadConfig_updated.png, Action (Mouse 1) killModule FvwmButtons DownloadConfigUpdated)
+
+
+###########################################################
+# DownloadConfigUpdating
+###########################################################
+
+DestroyModuleConfig DownloadConfigUpdating
+*DownloadConfigUpdating: Geometry 220x72+1600+200
+*DownloadConfigUpdating: Columns 220
+*DownloadConfigUpdating: Rows 72
+*DownloadConfigUpdating: Padding 0 0
+*DownloadConfigUpdating: Frame 0
+*DownloadConfigUpdating: Colorset 9
+*DownloadConfigUpdating: (220x72, Icon $[fvwm_images]/DownloadConfig_updating.png)
+
+
+###########################################################
+# Dock
+###########################################################
+
+DestroyModuleConfig Dock
+*Dock: Geometry 203x48+1650+65
+*Dock: Columns 203
+*Dock: Rows 48
+*Dock: Padding 0 0
+*Dock: Frame 0
+*Dock: Colorset 6
+*Dock: (46x48, Icon $[fvwm_images]/dockstart.png, ActiveIcon $[fvwm_images]/dockstartover.png, Action (Mouse 1) FvwmRearrange -animate -cascade -resize -m 10 10 50 50 -incx 2, Action (Mouse 2) FvwmRearrange -tile -animate -h -m 0 10 100 90, Action (Mouse 3) FvwmRearrange -tile -m 0 10 100 90)
+*Dock: (20x48, Icon $[fvwm_images]/desk1.png, ActiveIcon $[fvwm_images]/desk1Sel.png, Action (Mouse 1) GoToPage 0 0)
+*Dock: (20x48, Icon $[fvwm_images]/desk2.png, ActiveIcon $[fvwm_images]/desk2Sel.png, Action (Mouse 1) GoToPage 1 0)
+*Dock: (20x48, Icon $[fvwm_images]/desk3.png, ActiveIcon $[fvwm_images]/desk3Sel.png, Action (Mouse 1) GoToPage 2 0)
+*Dock: (20x48, Icon $[fvwm_images]/desk4.png, ActiveIcon $[fvwm_images]/desk4Sel.png, Action (Mouse 1) GoToPage 3 0)
+*Dock: (3x48, Icon $[fvwm_images]/space.png)	
+*Dock: (3x48, Icon $[fvwm_images]/sep.png)	
+*Dock: (4x48, Icon $[fvwm_images]/space.png)	
+*Dock: (16x48, Icon $[fvwm_images]/rs.png, ActiveIcon $[fvwm_images]/webover, Action (Mouse 1) Exec exec chromium-browser)	
+*Dock: (4x48, Icon $[fvwm_images]/space.png)	
+*Dock: (16x48, Icon $[fvwm_images]/restart.png, ActiveIcon $[fvwm_images]/fileover.png, Action (Mouse 1) Exec exec pcmanfm)	
+*Dock: (4x48, Icon $[fvwm_images]/space.png)	
+*Dock: (16x48, Icon $[fvwm_images]/halt.png, ActiveIcon $[fvwm_images]/termover.png, Action (Mouse 1) Exec exec gnome-terminal )	
+*Dock: (11x48, Icon $[fvwm_images]/dockend.png)	
+*Dock: Font "shadow=1 0 South:xft:Freesans:size=8:minspace=False:antialias=True"
+
+DestroyFunc AnimTerm
+AddToFunc AnimTerm
++ I AnimatedMove 50 50
+#+ I SendToModule FvwmAnimate animate 0 0 800 0 800 0 800 600
+#+ I Resize 100 85
+
+DestroyFunc AnimRun
+AddToFunc AnimRun
++ I AnimatedMove 5p 80p
+
+DestroyModuleConfig FvwmEvent: *
+*FvwmEvent: add_window NewWindowFunc
+
+DestroyFunc NewWindowFunc
+AddToFunc NewWindowFunc
+#+ I ThisWindow (gnome-terminal*) AnimTerm
++ I ThisWindow (gmrun) AnimRun
+###########################################################
+# Start Menu
+###########################################################
+
+DestroyModuleConfig Menu: *
+*Menu: Geometry 100x126+1175+38
+*Menu: Columns 99
+*Menu: Rows 126
+*Menu: Padding 0 0
+*Menu: Frame 0
+*Menu: ColorSet 2
+*Menu: (99x48, Icon $[fvwm_images]/menutop.png, Action (Mouse 1) KillModule FvwmButtons Menu)	
+*Menu: (99x75, "Test", Action (Mouse 1) KillModule FvwmButtons Menu)	
+*Menu: (99x3, Icon $[fvwm_images]/menubottom.png)	
+
+
+# opens shutdown dialog and closes the start menu
+DestroyFunc ExitFunc
+AddToFunc ExitFunc
++ I KillModule FvwmButtons Menu
++ I Module FvwmButtons Exit
+
+DestroyFunc Internet
+AddToFunc Internet
++ I Exec firefox
++ I KillModule FvwmButtons Menu
+
+DestroyFunc Mail
+AddToFunc Mail
++ I Exec thunderbird
++ I KillModule FvwmButtons Menu
+
+###########################################################
+# Shutdown Dialog
+###########################################################
+
+DestroyModuleConfig Exit: *
+*Exit: Geometry 138x48+1475+65
+*Exit: Columns 138
+*Exit: Rows 48
+*Exit: Padding 0 0
+*Exit: Frame 0
+*Exit: ColorSet 6 Transparent
+#*Exit: (3x18, Icon $[fvwm_images]/exittop.png, Action (Mouse 1) KillModule FvwmButtons Exit) # click image on top to exit the dialog
+*Exit: (46x48, Icon $[fvwm_images]/exititem1.png, ActiveIcon $[fvwm_images]/exititem1active.png, PressIcon $[fvwm_images]/exititem1active.png, Action (Mouse 1) Restart) 
+# clicking this logs you out
+*Exit: (46x48, Icon $[fvwm_images]/exititem2.png, ActiveIcon $[fvwm_images]/exititem2active.png, PressIcon $[fvwm_images]/exititem2active.png, Action (Mouse 1) RebootFunc) 
+# clicking this reboots
+*Exit: (46x48, Icon $[fvwm_images]/exititem3.png, ActiveIcon $[fvwm_images]/exititem3active.png, PressIcon $[fvwm_images]/exititem3active.png, Action (Mouse 1) ShutdownFunc) 
+# clicking this shuts down
+*Exit: Font "shadow=1 0 South:xft:Freesans:size=8:minspace=False:antialias=True"
+
+
+DestroyFunc LogoutFunc
+AddToFunc LogoutFunc
++ I Quit
+
+DestroyFunc RebootFunc
+AddToFunc RebootFunc
++ I Exec gksu reboot
+
+DestroyFunc ShutdownFunc
+AddToFunc ShutdownFunc
++ I Exec gksu halt

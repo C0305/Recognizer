@@ -1,0 +1,139 @@
+###########################################################
+# File:		.fvwmkeybindings
+# Author: 	Ernesto Cobos <tone@avenegra.org>
+# Modified:	2011-01-04
+###########################################################
+
+Key Next	A       SCM     Next [*] Focus
+Key Prior	A       SCM     Prev [*] Focus
+
+Mouse 1		R       A       Menu MenuFvwmLeft Nop
+Mouse 2		R	A	Menu MenuFvwmMiddle Nop
+Mouse 3		R	A       Menu MenuFvwmWindowOps Nop
+
+# I only have the close button assigned, so I only have one button, but you can add more, that "2" out there by itself dictates the location, so:
+# 1 3 5 7 9	everything else in the caption bar	0 8 6 4 2
+# Merely change the number to change the location and the position of other buttons
+Mouse 1		6	A       Shade
+Mouse 1		4	A       Maximize
+Mouse 1		2	A       CloseWin
+Mouse 4		T	A	ShadeAll
+Mouse 5		T	A	ShadeAll
+Mouse 3		T	A	Unshade
+
+
+
+DestroyFunc CloseWin
+AddToFunc CloseWin
++ I ThisWindow AnimatedMove $[w.x]p -100
++ I ThisWindow close
+
+DestroyFunc Unshade
+AddToFunc Unshade
++ I ThisWindow (Shaded) Shade
+
+DestroyFunc Shade
+AddToFunc Shade
++ I ThisWindow (!Shaded) SetEnv wx $[w.x]
++ I ThisWindow (!Shaded) SetEnv wy $[w.y]
++ I WindowShade
++ I ThisWindow (Shaded) AnimatedMove $[w.x]p 95
++ I ThisWindow (!Shaded) AnimatedMove $[w.x]p $[wy]p
+
+DestroyFunc ShadeAll
+AddToFunc ShadeAll
++ I All (!Sticky) Shade
+
+# "M" = Alt Key
+# "C" = Control Key
+# "S" = Shift Key
+# "4" = Super Key that assigned in my .fvwm2rc
+
+Mouse 1     	W	M	ThisWindow (!Iconic, !Shaded) Move
+Mouse 1		W	MC	ThisWindow (!Iconic, !Shaded) Resize
+
+Key Tab		A	M	WindowList "Prev WindowListFunc"
+
+AddToFunc WindowListFunc
++ I ThisWindow (Shaded) Shade
++ I Iconify off
++ I FlipFocus
++ I Raise
++ I WarpToWindow 5p 5p
+
+MenuStyle WindowList SelectOnRelease Meta_L
+MenuStyle WindowList VerticalItemSpacing 0 8, VerticalTitleSpacing 0 0
+MenuStyle WindowList BorderWidth 5
+MenuStyle WindowList MenuColorset 3 Transparent
+# necessary for transparency
+MenuStyle WindowList ActiveFore, Hilight3DOff, !HilightBack
+MenuStyle WindowList ActiveColorset 2
+#MenuStyle * ItemFormat "%10.35l"
+MenuStyle WindowList ItemFormat "%.5s%.10|%3.5l%2.3>%10|"
+MenuStyle WindowList TrianglesSolid, TrianglesUseFore
+#MenuStyle * Font "xft:Munica Regular:size=8"
+MenuStyle WindowList Font "shadow=1 0 South:xft:Freesans:size=8"
+
+
+Key F4		W	M	ThisWindow (!Iconic, !Shaded) Close
+Key q		W	M	ThisWindow (!Iconic, !Shaded) Close
+Key r		A	MCS	Restart
+Key space	A	M	None (*run) Exec gmrun || grun || fbrun || xfrun4 # None prevent from running several
+
+Key T		A	4	Exec urxvt
+Key T		A	4S	Exec thunderbird
+Key F		A	4S	Exec firefox
+Key N		A	4	Exec thunar
+Key S		A	4	Exec sonata
+Key M		A	4	Exec mousepad
+Key P		A	4	Exec pidgin
+Key L		A	4	Exec lxappearance
+Key Delete	A	MC	Exec lxtask	
+Key W		A	4	Exec abiword
+
+Key Up		A	MC	Scroll +10 +0
+Key Down	A	MC	Scroll -10 +0
+Key Right	A 	MC	GoToPage +1p 0p
+Key Left 	A	MC	GoToPage -1p 0p
+
+Key Up		A	MCS	MoveWUp
+Key Down	A	MCS	MoveWDown
+Key Right	A 	MCS	MoveWRight
+Key Left 	A	MCS	MoveWLeft
+
+# functions to move the window as well as your viewpoint
+
+DestroyFunc MoveWLeft
+AddToFunc MoveWLeft
++ I MoveToPage -1p 0p
++ I GoToPage -1p 0p
+
+DestroyFunc MoveWRight
+AddToFunc MoveWRight
++ I MoveToPage +1p 0p
++ I GoToPage +1p 0p
+
+# dont have any desktops on different rows, but what the hell
+
+DestroyFunc MoveWUp
+AddToFunc MoveWUp
++ I MoveToPage 0p +1p
++ I GoToPage 0p +1p
+
+DestroyFunc MoveWDown
+AddToFunc MoveWDown
++ I MoveToPage 0p -1p
++ I GoToPage 0p -1p
+
+# Raise Window on click, Shade on double click
+
+DestroyFunc RaiseOrShade
+AddToFunc   RaiseOrShade
++ CI     Raise
++ DI     WindowShade
++ I	Iconify off
+
+
+
+                       
+

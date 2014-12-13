@@ -1,0 +1,36 @@
++=============================================================================+
+|			Recognizer Desktop config			      |
++=============================================================================+
+
+Window Operations :
+------------------
+
+- Shade : Mouse 1 + Left window button
+- Maximize : Mouse 1 + Middle window button
+- Close : Mouse 1 + Right window button
+- Wheel up / Wheel down on Title bar : Shade/Unshade all non-shaded windows
+- On shaded windows, Mouse 3 anywhere on Title bar will unshade
+- Ctr + Alt anywhere on the window except title bar : Grow/Shrink window
+- Alt anywhere on the window : Move window
+
+Menus :
+-------
+
+Mouse 1 : Program menu
+Mouse 2 : Rocken menu
+Mouse 3 : Files & Backup/Update menu
+
+Desktop Operations :
+--------------------
+
+Alt + Space : Popup Gmrun
+Alt + F4 : close focused Window
+ALt + q : close focused Window
+Alt + Tab : Popup window list, selecting will raise window
+Alt + Ctr + Shift : Restart
+Alt + Ctr + Right : Go to the next workspace on the right
+Alt + Ctr + Left : Go to the next workspace on the left
+Alt + Ctr + Up : Scroll desktop to the left
+Alt + Ctr + Down : Scroll desktop to the right
+Alt + Ctr + Shift + Right : Move select window to the next right workspace
+Alt + Ctr + Shift + Left : Move select window to the next left workspace
