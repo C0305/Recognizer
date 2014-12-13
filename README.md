@@ -10,7 +10,8 @@ This is a work in progress
   * Based on FVWM
   * Extremely configurable
   * KISS as a design principle
-  * Open
+  * GPL V2
+  * Automatic installation of dependencies (Debian)
   
 #### Instalation ####
 
