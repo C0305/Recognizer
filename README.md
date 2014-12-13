@@ -1,7 +1,9 @@
 Recognizer
 ==========
 
-This is a very powerfull desktop for developers and people that love Windows Managers in Unix
+Recognizer is a very powerful desktop for developers and people that love Windows Managers in Unix/Linux/BSD/Unix-Like ....
+
+This is a work in progress
 
 #### Features ####
 
@@ -15,3 +17,11 @@ This is a very powerfull desktop for developers and people that love Windows Man
 To install Recognizer Desktop please use the installation script
 
 ./Recognizer-install
+
+
+### Buy me a Coffee ###
+
+If you like the project you can put a piece of code or you can buy me a coffee
+
+
+1EeHkHEcG7HuSEPkCBbVYcqCV3MGbSgxAK
